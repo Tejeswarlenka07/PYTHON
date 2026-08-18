@@ -1,0 +1,295 @@
+                       __________________
+function
+print("A")
+print("B")
+print("C")
+print("A")
+print("B")
+print("C")
+print("A")
+print("B")
+print("C")
+
+some statement repeated continously then choose loop
+write that repeated stmt only once inside the loop body part
+
+i=1
+while i<4:
+	print("A")
+	print("B")
+	print("C")
+	i=i+1
+
+
+print("A")
+print("B")
+print("C")
+print("D")
+print("A")
+print("B")
+print("C")
+print("E")
+print("A")
+print("B")
+print("C")
+
+
+some statement repeated after some  time then choose function
+write that repeated stmt only once inside the function bodypart
+
+slove above program using function
+
+
+
+def show():
+	print("A")
+	print("B")
+	print("C")
+	return
+show()
+print("D")
+show()
+print("E")
+show()
+
+
+function:
+it is self contained block .it perform task
+benifits :
+program length small
+time save
+reuseablity
+debuging
+
+
+There are  2 types of function
+(1)predefined function :
+	print()  input()  ,....
+(2)userdefined function
+	that name must be valid identifier
+
+how to define function  or function definition
+______________________
+
+def functionname(parameter):      #parameter name  formal paraameter/argument
+	task of function 
+	.
+	.
+
+
+function define only once time use any no of time.
+
+How to execute function
+_________________________
+
+we can function any no of times.
+syntax:
+
+functionname(parameter)       #parameter name actual parameter/argument
+
+
+
+we can write function program 4 way
+(1)no return value no argument
+(2)no return value with argument
+(3)return value with no argument
+(4)return value with argument
+
+
+
+#add two number without function
+print("enter two nos ")
+no1=int(input())
+no2=int(input())
+s=no1+no2
+printf("sum=",s)
+
+o/p:
+enter two nos
+10
+20
+sum=30
+
+#add two number without function
+print("enter two nos ")
+no1=int(input())
+no2=int(input())
+s=no1+no2
+printf("sum=",s)
+print("enter two nos ")
+no1=int(input())
+no2=int(input())
+s=no1+no2
+printf("sum=",s)
+
+o/p:
+enter two nos
+10
+20
+sum=30
+enter two nos
+30
+40
+sum=70
+
+
+
+
+(1)no return value no argument  add two nos
+def add():
+    print("enter two nos ")
+    no1=int(input())
+    no2=int(input())
+    s=no1+no2
+    print("sum=",s)
+add()
+add()
+
+
+(2)no return value no argument simpleinterset   function name   sical()
+
+def sical():
+	print("enter piniciple rate and time ")
+	p=int(input())
+	r=int(input())
+	t=int(input())
+	si=p*r*t/100
+	print("simple interset=",si)
+sical()
+
+(3)check no is even or odd     function name check()
+
+def check():
+	print("enter a number ")
+	no=int(input())
+	if no%2==0:
+		print("even number ")
+	else:
+		print("odd number ")
+check()
+
+
+
+
+no return value with argument
+_____________________________
+(1)no return value  argument  add two nos
+def add(no1,no2):
+    s=no1+no2
+    print("sum=",s)
+    return 
+add(10,20)
+add(30,40)
+
+or
+def add(no1,no2):
+    s=no1+no2
+    print("sum=",s)
+    return 
+print("enter two nos ")
+no1=int(input())
+no2=int(input())
+add(no1,no2)
+
+or
+def add(x,y):     # x ,y formal argument
+    s=x+y
+    print("sum=",s)
+    return 
+print("enter two nos ")
+no1=int(input())
+no2=int(input())
+add(no1,no2)   #function call  no1,no2 acutal parameter  or actual argument
+
+(2)no return value no argument simpleinterset   function name   sical()
+
+def sical(p,r,t):
+	si=p*r*t/100
+	print("simple interset=",si)
+print("enter piniciple rate and time ")
+p=int(input())
+r=int(input())
+t=int(input())
+sical(p,r,t)
+
+
+(3)check no is even or odd     function name check()
+def check(no):
+	if no%2==0:
+		print("even number ")
+	else:
+		print("odd number ")
+	return
+print("enter a number ")
+no=int(input())
+check(no)
+
+
+return value with no argument
+___________________________________
+return variablename;
+return constant
+return expression
+in python we can return more than values  other languange (c c++ java ) only one value
+
+return variable,constant
+
+
+#Wap function return integer value
+
+def show():
+	a=10
+	return a
+res=show()
+print(res)
+#print(show())
+
+
+#Wap function return flaot value
+def show():
+	a=10.45
+	return a
+res=show()
+print(res)
+
+
+#wap add two integer no using function return value no argument
+def add():
+	print("enter two nos ")
+	no1=int(input())
+	no2=int(input())
+	s=no1+no2
+	return s
+res=add()
+print("sum=",res)
+
+#evenodd  program
+
+
+
+
+#simpleinterset program
+
+
+
+
+
+(4)return value with argument
+________________________________
+
+#wap add two integer no using function return value no argument
+def add(no1,no2):
+	s=no1+no2
+	return s
+print("enter two nos ")
+no1=int(input())
+no2=int(input())
+res=add(no1,no2)
+print("sum=",res)
+
+#evenodd  program
+
+
+
+
+#simpleinterset program

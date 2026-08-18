@@ -1,0 +1,430 @@
+multthreading
+_
+
+
+multitasking
+__
+executing multiple task simultansouly is called as multtasking.
+
+it is of 2 types
+(1)process based multitasking
+(2)thread based multitasking
+ 
+(1)process based multitasking
+when program runs called as process.
+executing multiple independent program simultamously is called as pocess based multtasking.
+example:
+writing python program for idle.
+online class zoom
+downloading file
+
+(2)Thread base multitasking
+__
+A thread is flow of execution in a program.
+single flow of execution means single threaded.
+
+multiple flow if execution  means  multithreaded.
+executing multiple independent parts of the same program is called as multthreading.
+
+example:
+ms word
+
+spellchecker
+auto capitalization
+
+
+How to create thread
+_
+
+To create thread we have input module threading.
+The threading module contains a class Thread() by the help this thread class we can create thread
+we can create thread program 2 way
+(1)without using class
+(2)using class
+
+
+without thread  (single thread)
+__________
+def disp():
+    for i in range(5):
+        print("hello")
+def show():
+    for i in range(5):
+        print("bye")
+disp()
+show()
+
+o/p:
+C:\Users\HP\Desktop>py 1.py
+hello
+hello
+hello
+hello
+hello
+bye
+bye
+bye
+bye
+bye
+
+using thread
+_
+
+
+import threading
+def disp():
+    for i in range(5):
+        print("hello")
+def show():
+    for i in range(5):
+        print("bye")
+t1=threading.Thread(target=disp)
+t2=threading.Thread(target=show)
+t1.start()
+t2.start()
+
+
+o/p:
+C:\Users\HP\Desktop>py 1.py
+hello
+hello
+hello
+bye
+hello
+bye
+hello
+bye
+bye
+bye
+
+
+
+
+
+
+
+import threading
+def disp():
+    for i in range(5):
+        print("hello")
+def show():
+    for i in range(5):
+        print("bye")
+def main():
+    t1=threading.Thread(target=disp)
+    t2=threading.Thread(target=show)
+    t1.start()
+    t2.start()
+    for i in range(5):
+        print("ok")
+main()
+
+
+
+
+using  class 
+__
+
+import threading
+class Test:
+    def disp(self):
+        for i in range(5):
+            print("hello")
+    def show(self):
+        for i in range(5):
+            print("bye")
+t=Test()
+t1=threading.Thread(target=t.disp)
+t2=threading.Thread(target=t.show)
+t1.start()
+t2.start()
+
+o/p:
+C:\Users\HP\Desktop>py 1.py
+hello
+hello
+hello
+bye
+bye
+hello
+bye
+hello
+bye
+bye
+
+By using thread class concept(inhertiance)
+_
+
+if we want to create thread  then our class must be child of Thread class.
+
+Thread class contains two important method.
+
+(1)run()
+(2)start()
+
+(1)run():
+it is used defined the logic of thread.(child thread)
+(2)start(): 
+it is makes a thread for execution and calls run()
+
+we can override only two methods of thread class
+run() and init()
+
+import threading
+class MyThread(threading.Thread):
+    def run(self):
+        for i in range(5):
+            print("hello")
+t=MyThread()
+t.start()
+for i in range(5):
+    print("bye")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+multthread same task
+___
+import threading
+class MyThread(threading.Thread):
+    def run(self):
+        for i in range(5):
+            print("hello")
+t=MyThread()
+t.start()
+t1=MyThread()
+t1.start()
+
+
+different task for mult thread
+____
+import threading
+class MyThread1(threading.Thread):
+    def run(self):
+        for i in range(5):
+            print("hello")
+class MyThread2(threading.Thread):
+    def run(self):
+        for i in range(5):
+            print("bye")
+t1=MyThread1()
+t2=MyThread2()
+t1.start()
+t2.start()
+
+C:\Users\HP\Desktop\java basic\firstclass>py demo.py
+hello
+hello
+bye
+bye
+bye 
+hello
+bye
+hello
+bye
+hello
+
+
+single task mult thread
+___
+import threading
+class MyThread1(threading.Thread):
+    def run(self):
+        for i in range(5):
+            print("hello")
+t1=MyThread1()
+t2=MyThread1()
+t1.start()
+t2.start()
+
+o/p:
+C:\Users\HP\Desktop\java basic\firstclass>py demo.py
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+
+
+
+
+
+
+
+
+import threading
+class  MyThread(threading.Thread):
+    def run(self):
+        for i in range(5):
+            print("child thread")
+t=MyThread()
+t.start()
+for i in range(5):
+    print("main thread")
+
+o/p:
+C:\Users\HP\Desktop>py 1.py
+child thread
+main thread
+child thread
+main thread
+child thread
+main thread
+child thread
+main thread
+child thread
+main thread
+
+How to know current thread name
+___
+import threading
+class MyThread(threading.Thread):
+    def run(self):
+        print("hi",threading.current_thread())
+t=MyThread()
+t.start()
+print("bye",threading.current_thread())
+
+o/p:
+C:\Users\HP\Desktop>py 1.py
+hi <MyThread(Thread-1, started 10768)>
+bye <_MainThread(MainThread, started 18156)>
+
+
+import threading
+class MyThread(threading.Thread):
+    def run(self):
+        print("hi",threading.current_thread().name)
+t=MyThread()
+t.start()
+print("bye",threading.current_thread().name)
+
+
+o/p:
+
+bye MainThread
+hi Thread-1
+
+import threading
+class MyThread(threading.Thread):
+    def run(self):
+        print("hi",threading.current_thread().name)
+th=threading.current_thread()
+th.name="ram"
+t=MyThread()
+t.name="sita"
+t.start()
+print("bye",threading.current_thread().name)  #th.name
+
+
+
+
+
+
+import time
+
+def download_file(file_name):
+    print(f"Starting download: {file_name}")
+    time.sleep(2)  # Simulate the time taken to download
+    print(f"Completed download: {file_name}")
+
+# List of files to download
+files = ["file1.zip", "file2.zip", "file3.zip"]
+
+# Sequential downloading without threads
+for file in files:
+    download_file(file)
+
+print("All files have been downloaded.")
+
+Explanation:
+Each file is downloaded one after the other in the loop.
+No threads are created here, so the downloads occur sequentially.
+Timing Comparison:
+Sequential: Each file takes 2 seconds to "download". Since we have 3 files, the total time taken will be approximately 3 * 2 = 6 seconds.
+Multithreaded: In the multithreaded version, all three downloads happen concurrently, so the total time would be closer to just 2 seconds (the time taken by the slowest task).
+
+
+
+
+
+
+
+import threading
+import time
+def download_file(file_name):
+    print(f"Starting download: {file_name}")
+    time.sleep(2)  # Simulating the time taken to download the file
+    print(f"Completed download: {file_name}")
+
+# List of files to download
+files = ["file1.zip", "file2.zip", "file3.zip"]
+
+# Create a list to store the threads
+threads = []
+
+# Create and start a thread for each file download
+for file in files:
+    thread = threading.Thread(target=download_file, args=(file,))
+    threads.append(thread)
+    thread.start()
+
+# Wait for all threads to finish
+for thread in threads:
+    thread.join()
+
+print("All files have been downloaded.")
+
+Explanation:
+Thread Creation: For each file in the list, we create a thread using threading.Thread(). The target is the download_file function, and args=(file,) passes the filename to the function.
+Start Threads: Each thread is started immediately after creation using the start() method.
+Joining Threads: After starting all threads, we call join() on each thread. This ensures that the main program waits until all threads have finished downloading before proceeding.
+Parallel Execution: The downloads will happen concurrently, reducing the total time taken for the operation compared to sequential execution.
+
+
+
+
+
+
+import threading
+import time
+
+def print_numbers():
+    for i in range(5):
+        print(f"Number: {i}")
+        time.sleep(1)  # Simulating a delay
+
+def print_letters():
+    for letter in ['A', 'B', 'C', 'D', 'E']:
+        print(f"Letter: {letter}")
+        time.sleep(1.5)  # Simulating a delay
+
+# Create two threads
+t1 = threading.Thread(target=print_numbers)
+t2 = threading.Thread(target=print_letters)
+
+# Start the threads
+t1.start()
+t2.start()
+
+# Wait for bo th threads to complete
+t1.join()
+t2.join()
+
+print("Both threads have completed.")

@@ -1,0 +1,388 @@
+in python no acess modifier private protected public  we can write differnt way 
+Python uses naming conventions (not strict keywords) to define access levels for class members (variables and methods).
+
+There are 3 main access modifiers:
+
+Modifier	    Syntax	Accessibility	                           Meaning
+Public	       name	  Everywhere	                              Default. Accessible from anywhere
+Protected	  _name	   Within class and subclasses	            Suggests "use with caution"
+Private	      __name	Within class only (name mangling)	      Strictly internal use
+
+1. Public
+No underscores.
+
+Accessible from anywhere: inside and outside the class.
+
+class Demo:
+    def __init__(self):
+        self.name = "Public"
+
+obj = Demo()
+print(obj.name)   # ✅ Accessible
+
+
+2. Protected (_)
+
+One underscore prefix: _name
+
+By convention, it should be accessed only within the class or its subclasses.
+
+
+class Demo:
+    def __init__(self):
+        self._value = 100
+
+class Child(Demo):
+    def show(self):
+        print(self._value)  # ✅ Access in subclass
+
+obj = Child()
+obj.show()
+print(obj._value)  # ⚠️ Technically allowed, but discouraged
+
+
+
+3. Private (__)
+Two underscores prefix: __name
+
+Triggers name mangling: internally becomes _ClassName__name
+
+Can’t be accessed directly outside the class.
+
+
+class Demo:
+    def __init__(self):
+        self.__secret = "Hidden"
+
+obj = Demo()
+# print(obj.__secret)      # ❌ Error
+print(obj._Demo__secret)   # ✅ Name mangling bypass
+
+
+
+
+
+class Test:
+	def __init__(self):
+		self.a=10  #public
+		self.__b=20 #private
+	def show(self):
+		print("show function")
+		print(self.__b)
+		self.__disp()
+	def __disp(self):
+		print("private disp function")
+t=Test()
+print(t.a)
+t.show()
+#print(t.__b) private variable not acess
+#t.__disp();  private method not acess
+
+
+
+class MyClass:
+    def __init__(self):
+        self.__password = "secret123"  # Private
+
+    def show_password(self):
+        print(self.__password)  # ✅ Accessible within class
+
+obj = MyClass()
+obj.show_password()
+# print(obj.__password)        ❌ AttributeError
+print(obj._MyClass__password) 
+
+Modifier	Syntax	Access Scope
+Public	     var	Anywhere
+ Protected	_var	Class and Subclasses (by convention)
+Private	   __var	Class only (name mangling)
+
+
+
+
+class Student:
+    def __init__(self, name, roll, mark):
+        self.__name = name        # Private attribute
+        self.__rollno = roll      # Private attribute
+        self.__mark = mark        # Private attribute
+
+    def show(self):               # Getter-like method
+        print("my name =", self.__name)
+        print("my rollno =", self.__rollno)
+        print("my mark =", self.__mark)
+
+    def update(self, name, rollno, mark):  # Setter-like method
+        self.__name = name
+        self.__rollno = rollno
+        self.__mark = mark
+
+# Object creation and usage
+s = Student("muna", 1, 90.50)
+s.show()                      # Show initial details
+
+s.update("muna das", 1, 80.50)  # Update details
+s.show()                     # Show updated details
+
+
+o/p:
+my name= muna
+my rollno= 1
+my mark= 90.5
+my name= muna das
+my rollno= 1
+my mark= 80.5
+
+
+
+class Test:
+	def __init__(self):
+		self.a=10  #public
+		self.__b=20 #private
+	
+t=Test()
+print(t.a)
+t.__b=40
+print(t.__b)
+print(t.__dict__)
+
+
+
+
+C:\Users\LENOVO\OneDrive\Desktop\pythonbiki>py 1.py
+10
+40
+{'a': 10, '_Test__b': 20, '__b': 40}
+
+
+
+class Test:
+    def __init__(self): 
+        self.a=10  #public
+        self.__b=20 #private
+    
+t=Test()
+print(t.a)
+print(t.__dict__)
+t.__b=30
+print(t.__b)
+print(t.__dict__)
+
+o/p:
+C:\Users\LENOVO\OneDrive\Desktop\pythonbiki>py 1.py
+10
+{'a': 10, '_Test__b': 20}
+30
+{'a': 10, '_Test__b': 20, '__b': 30}
+
+
+ 
+Without Setter/Getter (Bad Practice)
+class Student:
+    def __init__(self):
+        self.__marks = 0
+
+obj = Student()
+obj.__marks = 100   # creates new attribute, doesn't change original __marks
+print(obj.__marks)  # 100
+print(obj._Student__marks)  # 0 – original value still unchanged
+
+
+
+
+clas s Student:
+    def __init__(self):
+        self.__marks = 0
+    def show(self):
+        print("mark=",self.__marks)
+        self.__marks=80
+
+obj = Student()
+obj.show()
+obj.__marks = 100   # creates new attribute, doesn't change original __marks
+print(obj.__marks)  # 100
+print(obj._Student__marks)  
+obj.show()
+
+o/p:
+mark= 0
+100
+80
+mark= 80
+
+
+
+setter and getter 
+______________________
+In Python, setter and getter methods are used to control access to private attributes of a class. 
+While you can use traditional methods (get_var() / set_var()), 
+the more Pythonic way is to use the @property decorator.
+
+ Why Use Getters and Setters?
+Control access to private data
+
+Add validation logic before setting values
+
+Encapsulation: hide internal representation
+suppose var is variable 
+Approach	Syntax	Access Style
+(1)Traditional	set_var(), get_var()	Explicit method call
+(2)Pythonic	@property, @var.setter	Use like attribu
+
+
+class Student:
+	def __init__(self):
+		self.__name=""
+		self.__rollno=0
+		self.__marks = 0  # private variable
+	def set_name(self,name):
+		self.__name=name 
+	def set_rollno(self,rollno):
+		self.__rollno=rollno
+	def set_marks(self, marks):
+		if marks >= 0:
+			self.__marks = marks
+	def get_marks(self):
+		return self.__marks
+	def get_name(self):
+		return self.__name
+	def get_rollno(self):
+		return self.__rollno
+obj = Student()
+obj.set_name("muna")
+obj.set_rollno(1)
+obj.set_marks(95)
+print("my name=",obj.get_name())
+print("my rollno=",obj.get_rollno())
+print("my mark=",obj.get_marks())  # Output: 95
+
+
+
+Person class  
+name
+age 
+height
+
+
+
+
+
+
+class Student:
+    def __init__(self):
+        self.__rollno = 0
+        self.__name=""
+        self.__mark=0.0
+    @property
+    def marks(self):            # getter
+        return self.__marks
+    @property
+    def name(self):            # getter
+        return self.__name
+    @property
+    def rollno(self):            # getter
+        return self.__rollno
+    @marks.setter
+    def marks(self, value):     # setter
+        if value >= 0:
+            self.__marks = value
+    @rollno.setter
+    def rollno(self, value):     # setter
+            self.__rollno =value
+    @name.setter
+    def name(self,name):     # setter
+            self.__name = name
+obj = Student()
+obj.name="muna"
+obj.rollno=1
+obj.marks = 90     # calls setter
+print("my name=",obj.name)
+print("my rollno=",obj.rollno)
+print("my mark=",obj.marks)   # calls getter
+
+
+
+  
+
+
+
+
+
+class Student:
+    def __init__(self,name,roll,mark):
+        self.__name =name  # Private
+        self.__rollno=roll
+        self.__mark=mark
+    def show(self):
+    	print("my name=",self.__name)
+    	print("my rollno=",self.__rollno)
+    	print("my mark=",self.__mark)
+    def update(self,name,rollno,mark):
+    	self.__name=name
+    	self.__rollno=rollno
+    	self.__mark=mark
+    @property
+    def marks(self):            # getter
+        return self.__marks
+    @property
+    def name(self):            # getter
+        return self.__name
+    @property
+    def rollno(self):            # getter
+        return self.__rollno
+
+    @marks.setter
+    def marks(self, value):     # setter
+        if value >= 0:
+            self.__marks = value
+    @rollno.setter
+    def rollno(self, value):     # setter
+            self.__rollno =value
+    @name.setter
+    def name(self,name):     # setter
+            self.__name = name
+s=Student("muna",1,90.50)
+s.show()
+s.update("muna das",1,80.50)
+s.show()
+s.name="muna kumar das"
+print(s.name)
+
+
+
+
+
+
+
+
+class Student:
+    def __init__(self,name,roll,mark):
+        self.__name =name  # Private
+        self.__rollno=roll
+        self.__mark=mark
+    def show(self):
+    	print("my name=",self.__name)
+    	print("my rollno=",self.__rollno)
+    	print("my mark=",self.__mark)
+    def update(self,name,rollno,mark):
+    	self.__name=name
+    	self.__rollno=rollno
+    	self.__mark=mark
+    def set_name(self,name):
+    	self.__name=name 
+    def set_rollno(self,rollno):
+    	self.__rollno=rollno
+    def set_marks(self, marks):
+    	if marks >= 0:
+    		self.__marks = marks
+    def get_marks(self):
+     	return self.__marks
+    def get_name(self):
+    	return self.__name
+    def get_rollno(self):
+    	return self.__rollno
+s=Student("muna",1,90.50)
+s.show()
+s.update("muna das",1,80.50)
+s.show()
+s.set_name("muna kumar das")
+print(s.get_name())

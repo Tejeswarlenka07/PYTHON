@@ -1,0 +1,263 @@
+take input list data from keyboard
+______________________________________
+print("enter list data")
+L=eval(input())
+print(L)
+
+o/p:
+enter list data
+[10,20,30]
+[10,20,30]
+
+
+
+
+L=[]
+print("enter how many integer element  store ")
+s=int(input())
+for i in range(s):
+	print("enter element ",i+1)
+	L.append(int(input()))
+print(L)
+
+
+
+L=[0,0,0,0,0]
+s=len(L)
+for i in range(s):
+	print("enter element ",i+1)
+	L[i]=int(input())
+print(L)
+
+
+
+L=[5,7,8,12,4,6]
+oc,ec=0,0
+for i in range(len(L)):
+	if L[i]%2==0:
+		ec=ec+1
+	else:
+		oc=oc+1
+print("no of odd element=",oc)
+print("no of even element=",ec)
+
+
+
+
+L=[5,7,8,12,4,6]
+oc=[]
+ec=[]
+for i in range(len(L)):
+	if L[i]%2==0:
+		ec.append(L[i])
+	else:
+		oc.append(L[i])
+print("no of odd element=",oc)
+print("no of even element=",ec)
+
+
+
+2d list
+_________________
+L=[[1,2,3],[4,5,6]]
+print(L)
+print(L[0])
+print(L[1])
+print(L[1][1])
+
+display element matrix format   using sequenece
+_____________________
+L=[[1,2,3],[4,5,6]]
+for i in L:
+	for j in i:
+		print(j,end="\t")
+	print()
+
+
+display element matrix format   using range
+_____________________
+L=[[1,2,3],[4,5,6]]
+for i in range(0,len(L),1):
+	for j in range(0,len(L[i]),1):
+		print(L[i][j],end="\t")
+	print()
+
+
+take 2d list form keyboard
+________________________
+
+print("enter 2d list data")
+L=eval(input())
+print(L)
+
+o/p:
+enter 2d list data
+[[1,2,3],[4,5,6]]
+
+
+
+print("enter 2d list data r and c")
+r=int(input())
+c=int(input())
+L=[]
+print("enter ",r*c ,"elements")
+for i in range(0,r,1):
+    x=[]
+	for j in range(0,c,1):
+		x.append(int(input()))
+	L.append(x)
+print(L)
+
+3rd way
+_____________
+L=[[0,0,0],[0,0,0]]
+r=len(L)
+c=len(L[0])
+print("enter ",r*c ,"elements")
+for i in range(0,r,1):
+    x=[]
+	for j in range(0,c,1):
+		L[i][j]=int(input())
+print(L)
+
+
+
+list comprehension
+______________________
+
+syntax:
+L=[exp  for element in sequence if condtion  ]
+
+without list com
+______________________
+L=[2,3,5]
+L1=[]
+for i in L:
+	L1.append(i)
+print(L1)
+
+
+using list comp
+_________________
+L=[2,3,5]
+L1=[i for i in L]
+print(L1)
+
+
+without list com
+______________________
+L=[2,3,5,8,10,11]
+L1=[]
+for i in L:
+	if i%2==0:
+		L1.append(i)
+print(L1)
+
+
+using list comp
+________________
+L=[2,3,5,8,10,11]
+L1=[i for i in L if i%2==0]
+print(L1)
+
+or
+
+L1=[i for i in [2,3,5,8,10,11] if i%2==0]
+print(L1)
+
+o/p: [2,8,10]
+
+L1=[i for i in "welcome" if i in "aeiou"]
+print(L)
+o/p:
+['e', 'o', 'e']
+
+L1=[i for i in "welcome" if i not in "aeiou"]
+print(L1)
+o/p:
+['w', 'l', 'c', 'm']
+
+
+
+L1=[i+3 for i in range(5) if i%2==0]
+print(L1)
+
+o/p
+[3,5,7]
+
+
+without list com
+___________________
+L=[[1,2,3],[4,5,6],[7,8,9]]
+L1=[]
+for i in range(len(L)):
+	x=[]
+	for j in range(len(L[i])):
+		x.append(L[i][j])
+	L1.append(x)
+print(L1)
+
+
+
+
+using list comp
+______________
+L=[[1,2,3],[4,5,6],[7,8,9]]
+L1=[[L[i][j]  for j in range(len(L[i]))] for i in range(len(L))]
+print(L1)
+
+
+
+lower triangle list
+________________________
+L=[[1,2,3],[4,5,6],[7,8,9]]
+L1=[[L[i][j]  for j in range(len(L[i])) if i<=j] for i in range(len(L)) ]
+print(L1)
+
+o/p:
+[[1, 2, 3], [5, 6], [9]]
+
+
+L=[[1,2,3],[4,5,6],[7,8,9]]
+L1=[[L[i][j]  for j in range(len(L[i])) if i==j] for i in range(len(L)) ]
+print(L1)
+
+o/p:
+[[1], [5], [9]]
+
+
+
+matric add using list comp
+____________________________
+L1=[[1,2,3],[4,5,6],[7,8,9]]
+L2=[[1,1,1],[2,2,2],[0,1,0]]
+L3=[[L1[i][j]+L2[i][j]  for j in range(len(L1[i]))] for i in range(len(L1)) ]
+print(L3)
+
+
+o/p:
+[[2, 3, 4], [6, 7, 8], [7, 9, 9]]
+
+
+L1=[[1,2,3],[4,5,6],[7,8,9]]
+L3=[[L1[j][i] for j in range(len(L1[i]))] for i in range(len(L1)) ]
+print(L3)
+o/p:
+[[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+
+
+
+L1=[[1,2,3],[4,5,6]]
+L3=[[L1[j][i] for j in range(len(L1))] for i in range(len(L1[0])) ]
+print(L3)
+
+o/p:
+[[1, 4], [2, 5], [3, 6]]
+
+
+L1=[[1,2,3],[4,5,6],[7,8,9]]
+L3=[[L1[j][i] for j in range(len(L1))] for i in range(len(L1[0])) ]
+print(L3
+
+o/p:
+[[1, 4, 7], [2, 5, 8], [3, 6, 9]]

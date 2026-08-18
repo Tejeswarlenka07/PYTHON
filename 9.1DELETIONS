@@ -1,0 +1,393 @@
+class variable     class method
+_____________________________
+ex1:
+
+class Demo:
+    class_var=100
+print(Demo.class_var)  # 100
+
+
+ex2:Create a Class Variable in a Method
+
+class Demo:
+    @classmethod
+    def create_class_var(cls, value):
+        cls.class_var = value  # create class variable
+
+Demo.create_class_var(100)
+print(Demo.class_var)  # 100
+
+ex3:Using Instance Method:
+
+class Demo:
+    def create_class_var(self, value):
+        Demo.class_var = value  # also works
+d = Demo()
+d.create_class_var(200)
+print(Demo.class_var)  # 200
+
+
+
+
+ex4: 
+class Demo:
+    pass
+Demo.a=10
+print(Demo.a)
+
+
+ Delete a Class Variable in a Method
+
+class Demo:
+    class_var = 50  # class variable
+
+    @classmethod
+    def delete_class_var(cls):
+        del cls.class_var
+
+print(Demo.class_var)  # 50
+Demo.delete_class_var()
+# print(Demo.class_var)  # Error: AttributeError
+
+ Delete a Class Variable Using Instance Method:
+__________________________________________
+class Demo:
+    class_var = 99
+
+    def delete_class_var(self):
+        del Demo.class_var
+
+d = Demo()
+d.delete_class_var()
+# print(Demo.class_var)  # Error: AttributeError
+
+
+
+class Demo:
+    x=10
+print(Demo.x)
+del Demo.x
+#print(Demo.x) error
+
+
+
+
+
+Full Example  class variable : (Create & Delete Both)
+class Student:
+    @classmethod
+    def add_college(cls, name):
+        cls.college = name
+
+    @classmethod
+    def remove_college(cls):
+        del cls.college
+
+# Create
+Student.add_college("IIT")
+print(Student.college)  # IIT
+
+# Delete
+Student.remove_college()
+# print(Student.college)  # AttributeError
+
+
+
+
+
+instance variable create delete   methdo
+___________________________________
+ex1:
+class Demo:
+    pass
+d=Demo()
+d.a=10
+print(d.a)
+del d.a
+#print(d.a) error
+
+ex2:Create a Class Variable in a constructor
+
+class Demo:
+    
+    def __init__(self,value)
+        self.x = value  # create instance variable
+d=Demo(10)
+print(d.x)
+del d.x
+#print(d.x)  error
+
+
+ex3:
+class Demo:
+    
+    def __init__(self,value)
+        self.x = value  # create instance variable
+    def __del__(self):
+        del self.x
+d=Demo(10)
+
+ex4:
+class Demo:
+    def set(self, value):
+       self.x = value  # also works
+    def deletex(self):
+        del self.x
+d = Demo()
+d.set(10)
+print(d.x)
+#d.deletex() error
+
+
+ex5:instance variable inside class method and satic method
+
+In Python, instance variables are tied to an object (not the class itself), so they are usually created and modified using self inside instance methods.
+
+However, it is also possible to create or delete instance variables from a class method or static method, but only if you pass the instance explicitly.
+
+Let’s look at each case clearly:
+
+
+
+
+class Demo:
+    @classmethod
+    def create_instance_var(cls, obj, value):
+        obj.x = value  # 'obj' is an instance passed manually
+
+class A:
+    pass
+
+a = A()
+Demo.create_instance_var(a, 10)
+print(a.x)  # 1
+
+
+
+
+class Demo:
+    @classmethod
+    def delete_instance_var(cls, obj):
+        print("Deleting instance variable 'x' from object...")
+        del obj.x
+
+class Test:
+    def __init__(self):
+        self.x = 100  # instance variable
+
+# Create object
+t = Test()
+print("Before deletion:", t.x)  # 100
+
+# Delete instance variable using class method
+Demo.delete_instance_var(t)
+
+# Try accessing after deletion (will raise AttributeError)
+try:
+    print("After deletion:", t.x)
+except AttributeError:
+    print("AttributeError: 'x' has been deleted.")
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+2. Create/Delete Instance Variable in @staticmethod 
+
+
+class Demo:
+    @staticmethod
+    def create_instance_var(obj, value):
+        obj.y = value
+
+class B:
+    pass
+
+b = B()
+Demo.create_instance_var(b, 20)
+print(b.y)  # 20
+
+
+
+
+
+class Demo:
+    @staticmethod
+    def delete_instance_var(obj):
+        print("Deleting instance variable 'x' from object...")
+        del obj.x
+
+class Test:
+    def __init__(self):
+        self.x = 200  # instance variable
+
+# Create object
+t = Test()
+print("Before deletion:", t.x)  # 200
+
+# Delete instance variable using static method
+Demo.delete_instance_var(t)
+
+# Try accessing after deletion (will raise AttributeError)
+try:
+    print("After deletion:", t.x)
+except AttributeError:
+    print("AttributeError: 'x' has been deleted.")
+
+
+
+
+Before deletion: 200
+Deleting instance variable 'x' from object...
+AttributeError: 'x' has been deleted.
+
+
+
+
+class Student:
+    # CLASS VARIABLE
+    school_name = "ABC International School"
+
+    def __init__(self, name, roll):
+        # CONSTRUCTOR
+        # INSTANCE VARIABLES
+        self.name = name
+        self.roll = roll
+
+    # INSTANCE METHOD
+    def display_info(self):
+        print("Name:", self.name)
+        print("Roll No:", self.roll)
+        print("School:", Student.school_name)
+
+    # CLASS METHOD
+    @classmethod
+    def change_school(cls, new_name):
+        cls.school_name = new_name
+
+
+# Create student objects
+s1 = Student("John", 101)
+s2 = Student("Emma", 102)
+
+# Display info for each student
+s1.display_info()
+s2.display_info()
+
+# Change the school name using class method
+Student.change_school("XYZ Public School")
+
+# Display again to see updated class variable
+s1.display_info()
+s2.display_info()
+
+
+
+
+
+
+
+
+class Employee:
+    # CLASS VARIABLE
+    company_name = "TechNova Pvt. Ltd."
+
+    def __init__(self, name, emp_id, salary):
+        # CONSTRUCTOR
+        # INSTANCE VARIABLES
+        self.__name = name            # private instance variable
+        self.__emp_id = emp_id
+        self.__salary = salary
+
+    # INSTANCE METHOD
+    def display_info(self):
+        print("Name:", self.__name)
+        print("Employee ID:", self.__emp_id)
+        print("Salary:", self.__salary)
+        print("Company:", Employee.company_name)
+
+    # CLASS METHOD
+    @classmethod
+    def change_company(cls, new_name):
+        cls.company_name = new_name
+
+    # GETTER METHOD for name
+    @property
+    def name(self):
+        return self.__name
+
+    # SETTER METHOD for name
+    @name.setter
+    def name(self, new_name):
+        if new_name != "":
+            self.__name = new_name
+        else:
+            print("Invalid name!")
+
+    # GETTER for salary
+    @property
+    def salary(self):
+        return self.__salary
+
+    # SETTER for salary
+    @salary.setter
+    def salary(self, amount):
+        if amount > 0:
+            self.__salary = amount
+        else:
+            print("Salary must be positive!")
+
+# Creating employee objects
+e1 = Employee("Alice", 1001, 50000)
+e2 = Employee("Bob", 1002, 60000)
+
+# Display original info
+e1.display_info()
+e2.display_info()
+
+# Using setter to update name and salary
+e1.name = "Alicia"
+e1.salary = 55000
+
+# Using getter to fetch updated values
+print("\nUpdated Name:", e1.name)
+print("Updated Salary:", e1.salary)
+
+# Changing the company name using class method
+Employee.change_company("CodeGalaxy Ltd.")
+
+# Display updated info
+print("\nAfter Company Change:")
+e1.display_info()
+
+
+
+
+
+o/p:
+Name: Alice
+Employee ID: 1001
+Salary: 50000
+Company: TechNova Pvt. Ltd.
+
+Name: Bob
+Employee ID: 1002
+Salary: 60000
+Company: TechNova Pvt. Ltd.
+
+Updated Name: Alicia
+Updated Salary: 55000
+
+After Company Change:
+Name: Alicia
+Employee ID: 1001
+Salary: 55000
+Company: CodeGalaxy Ltd.

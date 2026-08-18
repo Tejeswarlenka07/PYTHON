@@ -1,0 +1,187 @@
+reuseablity
+______________
+print("hi")
+print("hi")
+print("hi")
+print("hi")
+print("hi")
+
+sloution:
+use loop 
+for i in range(5):
+        print("hi")
+
+
+print("A")
+print("B")
+print("C")
+print("D")
+print("A")
+print("B")
+print("C")
+print("E")
+print("A")
+print("B")
+print("C")
+
+sloution use function 
+
+
+def show():  
+    print("A")
+    print("B")
+    print("C")
+show()
+print("D")
+show()
+print("E")
+show()
+
+
+
+Rectangle 1 shape 
+___________________________
+def area(L,B):
+    return L*B
+def periemetr(L,B):
+    return 2*(L+B)
+print("enter reactangle length and breadth")
+L=float(input())
+B=float(input())
+print("area of reactangle=",area(L,B))
+print("periemetr of reactangle=",periemeter(L,B))
+
+
+
+
+Rectangle 1 shape 
+___________________________
+def area(L,B):
+    return L*B
+def periemetr(L,B):
+    return 2*(L+B)
+#1st shape
+print("enter reactangle length and breadth")
+L=float(input())
+B=float(input())
+print("area of reactangle=",area(L,B))
+print("periemetr of reactangle=",periemeter(L,B))
+print("enter reactangle length and breadth")
+#2nd shape reactangle
+L=float(input())
+B=float(input())
+print("area of reactangle=",area(L,B))
+print("periemetr of reactangle=",periemeter(L,B))
+
+#10 shape     10 times   
+slove using oops class and object 
+
+class Rectangle:
+    def __init__(self):
+        print("enter rectangle length and breadth")
+        self.L=float(input())
+        self.B=float(input())
+    def area():
+        return self.L*self.B
+    def periemetr():
+        return 2*(self.L+self.B)
+    def  show(self):
+        print("length=",self.L)
+        print("breadth=",self.B)
+        print("area of reactangle=",self.area())
+        print("perimeter of racangle= ",self.periemetr())
+r1=Rectangle()
+r1.show() 
+r2=Rectangle()
+r2.show()
+r3=Rectangle()
+r3.show()
+
+
+
+In Python, "has-a" and "is-a" relationships are concepts from Object-Oriented Programming (OOP) that describe 
+class relationships:
+
+✅ 1. "is-a" Relationship — Inheritance
+This means a class is a type of another class.
+
+🔹 Example:
+class Animal:
+    def speak(self):
+        print("Animal speaks")
+
+# Dog **is-a** Animal
+class Dog(Animal):
+    def bark(self):
+        print("Dog barks")
+
+d = Dog() 
+d.speak()  # Inherited from Animal
+d.bark()   # Dog's own method
+🔸 Here, Dog is-a Animal → because Dog inherits from Animal.
+
+✅ 2. "has-a" Relationship — Composition
+This means a class contains another class (uses it as an object or attribute).
+
+ 🔹 Example:
+class Engine:
+    def start(self):
+        print("Engine starts")
+
+# Car **has-a** Engine
+class Car:
+    def __init__(self):
+        self.engine = Engine()   # Composition
+
+    def start(self):
+        self.engine.start()
+        print("Car starts")
+
+c = Car()
+c.start()
+🔸 Here, Car has-a Engine → because Car contains an instance of Engine.
+
+🔁 Summary:
+Relationship	Description	Technique	            Example
+is-a			Inheritance	class     B(A)	         Dog is-a Animal
+has-a		Composition / Containment	A has B object	Car has-a Engine
+
+one class use another class  
+
+B is A  type       (inhertaince example)
+
+class A:
+    def show(self):
+        print("show method")
+class B(A):
+    def look(self):
+        print("look method") 
+ob=B()
+ob.show()
+ob.look()
+
+ 
+
+class A:
+    def show(self):
+        print("show method")
+class B(A):
+    def look(self):
+        print("look method") 
+ob=B()
+ob.show()
+ob.look()
+obj=A()
+obj.show()
+#obj.look() error
+
+class A:
+	def show(self):
+		print("show method")
+class B:
+	def __init__(self):
+		self.ob=A()
+		self.x=10
+obj=B()
+print(obj.x)
+obj.ob.show()

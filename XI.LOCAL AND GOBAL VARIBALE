@@ -1,0 +1,1105 @@
+different types of variable
+________________________________
+
+(1)local 
+(2)global
+(3)instance
+(4)class
+
+local variable
+___________________
+class Demo:
+    def __init__(self):
+        a=10
+        print("local variable=",a)
+    def show(self,b):
+        e=40
+        print("local or formal parameter =",b)
+def disp():
+    c=30
+    print("local varaiable =",c)
+ob=Demo()
+disp()
+ob.show(50)
+#print(a) error local varaiable outside the block
+#print(b)
+#print(c)
+
+global variable
+__________________
+a=10
+class Demo:
+    def __init__(self):
+        print("global  variable=",a)
+    def show(self,b):
+        global a
+        print("global variable =",a)
+        a=30
+def disp():
+    print("global varaiable =",a)
+ob=Demo()
+disp()
+
+ob.show(50)
+print(a) 
+a=50
+print(a)
+
+
+o/p:
+global  variable= 10
+global varaiable = 10
+global variable = 10
+30
+50
+
+
+
+
+a=10 # global variable  
+class Demo:
+    def __init__(self):
+        b=20  #local variable
+    def show(self,b):
+        c=30   #local variable
+ob=Demo()
+print(ob.__dict__)
+
+
+o/p:
+{  }
+
+
+
+instance variable 
+_________________
+a=10 # global variable  
+class Demo:
+    def __init__(self):
+        self.b=20  #instance variable
+    def show(self):
+        e=50
+        self.c=30   #instance variable
+ob=Demo()
+print(ob.__dict__)
+ob.show()
+print(ob.__dict__)
+ob.d=40
+print(ob.__dict__)
+
+
+o/p:
+{'b': 20}
+{'b': 20, 'c': 30}
+{'b': 20, 'c': 30, 'd': 40}
+
+we can create instance variable any location 
+
+
+
+per object per instance variable
+______________________________
+a=10 # global variable  
+class Demo:
+    def __init__(self):
+        self.b=20  #instance variable
+    def show(self):
+        self.c=30   #instance variable
+ob=Demo()
+print(ob.__dict__)
+ob.show()
+print(ob.__dict__)
+ob.d=40
+print(ob.__dict__)
+ob1=Demo()
+print(ob1.__dict__)
+ob1.x=50
+print(ob1.__dict__)
+
+o/p:
+{'b': 20}
+{'b': 20, 'c': 30}
+{'b': 20, 'c': 30, 'd': 40}
+{'b': 20}
+{'b': 20, 'x': 50}
+
+
+class variable:
+
+
+
+class Demo:
+    a=10   #class variable
+    def __init__(self):
+        self.b=20  #instance variable
+    def show(self):
+        self.c=30   #instance variable
+ob=Demo()
+print(ob.__dict__)
+ob.show()
+print(ob.__dict__)
+print(Demo.__dict__)
+
+o/P:
+{'b': 20}
+{'b': 20, 'c': 30}
+{'__module__': '__main__', 'a': 10, '__init__': <function Demo.__init__ at 0x0000026D64CAD300>, 'show': <function Demo.show at 0x0000026D64CAD120>, '__dict__': <attribute '__dict__' of 'Demo' objects>, '__weakref__': <attribute '__weakref__' of 'Demo' objects>, '__doc__': None}
+
+
+
+
+
+
+
+
+
+class Demo:
+    a=10   #class variable
+    def __init__(self):
+        self.b=20  #instance variable
+        g=90 #local variable
+    def show(self):
+        self.c=30   #instance variable
+ob=Demo()
+#print(ob.__dict__)  #{ 'b': 20}
+ob.show()
+#print(ob.__dict__)  #('b':20 ,'c':30')
+#print(Demo.__dict__) #{extra  ,'a':10}
+print(ob.b,ob.c,ob.a,Demo.a)
+#print(g)  local variabl   not acess outside
+
+
+o/p:
+20 30 10 10
+
+ equvalient java code 
+ __________________________
+class Demo {
+    static int a = 10; // class variable
+    int b;             // instance variable
+    int c;             // instance variable (assigned in show)
+
+    Demo() {
+        b = 20;
+        int g = 90; // local variable, only accessible in constructor
+    }
+
+    void show() {
+        c = 30; // instance variable
+    }
+
+    public static void main(String[] args) {
+        Demo ob = new Demo();
+        ob.show();
+
+        System.out.println(ob.b + " " + ob.c + " " + ob.a + " " + Demo.a);
+        // or optionally with labels:
+        // System.out.println("b=" + ob.b + " c=" + ob.c + " a=" + ob.a + " Demo.a=" + Demo.a);
+    }
+}
+
+class Demo:
+    a=10   #class variable
+    def __init__(self):
+        self.b=20  #instance variable
+        g=90 #local variable
+    def show(self):
+        self.c=30   #instance variable
+ob=Demo()
+#print(ob.__dict__)  #{ 'b': 20}
+ob.show()
+#print(ob.__dict__)  #('b':20 ,'c':30')
+#print(Demo.__dict__) #{extra  ,'a':10}
+print(ob.b,ob.c,ob.a,Demo.a)  #20 30 10 10
+print(ob.__dict__) #('b':20 ,'c':30')
+ob.a=50
+print(ob.__dict__) #('b':20 ,'c':30','a:50)
+print(ob.a,Demo.a) #50 10
+Demo.a=70
+print(ob.a,Demo.a) #50 10
+
+o/p:
+20 30 10 10
+{'b': 20, 'c': 30}
+{'b': 20, 'c': 30, 'a': 50}
+50 10
+50 70
+
+
+
+
+class Demo:
+    a = 10
+    def __init__(self):
+        self.b = 20  # instance variable
+
+    def show(self):
+        self.c = 30  # instance variable
+
+ob = Demo()
+ob.show()
+ob.d = 40  # dynamically added attribute
+print(ob.b, ob.c, ob.d)
+
+o/p:
+20 30 40 
+
+❗ Key Points:
+b is initialized in __init__
+
+c is initialized in show()
+
+d is dynamically added to the object after creation — this is possible in Python, but not allowed in Java (Java doesn't allow adding new attributes dynamically to an object after it's created).
+
+class Demo {
+    int b; // instance variable
+    int c; // instance variable
+    int d; // extra variable manually added in Java
+
+    Demo() {
+        b = 20;
+    }
+
+    void show() {
+        c = 30;
+    }
+
+    public static void main(String[] args) {
+        Demo ob = new Demo();
+        ob.show();
+        ob.d = 40;  // in Java, you must define this field in the class
+
+        System.out.println(ob.b + " " + ob.c + " " + ob.d);
+    }
+}
+
+
+
+differnence between instance variable and class variable
+__________________________________________________
+class Demo:
+    a=10 
+    def __init__(self):
+        self.b=20  #instance variable
+ob1=Demo()
+ob2=Demo()
+print(ob1.a,ob1.b) # 10 20
+print(ob2.a,ob2.b) # 10 20
+ob1.b=30
+ob2.b=40
+Demo.a=50
+print(ob1.a,ob1.b) # 50 30
+print(ob2.a,ob2.b) # 50 40
+
+
+
+o/p:
+10 20
+10 20
+50 30
+50 40
+
+
+
+class Demo:
+    a=10 
+    def __init__(self):
+        self.b=20  #instance variable
+ob1=Demo()
+ob2=Demo()
+print(ob1.a,ob1.b) # 10 20
+print(ob2.a,ob2.b) # 10 20
+ob1.a=30
+ob2.b=40
+Demo.a=50
+print(ob1.a,ob1.b) # 30 20
+print(ob2.a,ob2.b) #50 40
+
+o/p:
+10 20
+10 20
+30 20
+50 40
+
+
+# count no of object 
+
+class Demo:
+    c=0# class variable
+    def __init__(self):
+        Demo.c=Demo.c+1
+ob1=Demo()
+ob2=Demo()
+ob3=Demo()
+L=[Demo(),Demo(),Demo()]
+print("no of object=",Demo.c)
+
+
+o/P;
+no of object=6
+
+
+
+class Demo:
+    c=0# class variable
+    def __init__(self):
+        Demo.c=1
+        self.a=1
+    def update(self):
+        Demo.c=Demo.c+1
+        self.a=self.a+1
+    def show(self):
+        print(self.a,Demo.c)
+d=Demo()
+d1=Demo()
+d2=Demo()
+d.update()
+d1.update()
+d2.update()
+d.show()
+d1.show()
+d2.show()
+
+
+C:\Users\LENOVO\OneDrive\Desktop\pythonbiki>py p.py
+2 4
+2 4
+2 4
+
+
+https://chatgpt.com/share/6878f21c-f254-8008-8b72-d9730f613602
+
+
+
+
+
+
+
+
+different types of variable
+________________________________
+
+(1)local 
+(2)global
+(3)instance
+(4)class
+
+
+(1) Local Variable in Python
+🔹 Definition:
+A local variable is declared inside a function or method, including the constructor __init__().
+It exists only while the function/method runs and gets destroyed after execution ends.
+
+
+ Local Variable
+ _________________
+Defined inside a function or method.
+
+Accessible only within that function or method.
+
+Automatically destroyed after the function exits.
+
+def fun():
+    x = 10  # local variable
+    print(x)
+
+fun()
+
+
+ Local Variable inside Constructor
+ __________________________________
+class Demo:
+    def __init__(self):
+        x = 10  # local variable
+        print("Inside constructor, x =", x)
+
+d = Demo()
+# print(x)  # ❌ Error: x is not defined outside the constructo
+
+
+
+ Local Variable inside Instance Method
+ ____________________________________
+ class Demo:
+    def show(self):
+        y = 20  # local variable
+        print("Inside method, y =", y)
+
+d = Demo()
+d.show()
+# print(y)  # ❌ Error: y is not defined outside the method
+
+
+
+class Demo:
+    def __init__(self):
+        a=10
+        print("local variable=",a)
+    def show(self,b):
+        e=40
+        print("local or formal parameter =",b)
+def disp():
+    c=30
+    print("local varaiable =",c)
+ob=Demo()
+disp()
+ob.show(50)
+#print(a) error local varaiable outside the block
+#print(b)
+#print(c)
+
+
+Characteristics of Local Variable:
+Feature                        Description
+Defined in                  Function, method, or constructor
+Scope                       Only accessible inside that block
+Lifetime                      Exists during function execution only
+Accessed by Direct name             (e.g., x, y)
+Not used with                    self or global
+
+
+
+
+Global Variable
+Declared outside all functions or classes.
+
+Accessible from any function or method in the file.
+
+Can be modified inside functions using the global keyword.
+
+x = 100  # global variable
+
+def show():
+    global x
+    x = x + 1
+    print("Inside function:", x)
+show()
+print("Outside function:", x)
+
+
+
+🔹 Definition:
+A global variable is defined outside all classes and functions.
+It can be accessed (and modified using global keyword) inside class methods or functions.
+
+Example: Using Global Variable with a Class
+
+x = 100  # global variable
+
+class Demo:
+    def show(self):
+        print("Accessing global x inside method:", x)
+
+    def modify(self):
+        global x
+        x = x + 50
+        print("Modified global x:", x)
+
+d = Demo()
+d.show()      # Output: 100
+d.modify()    # Output: 150
+print(x)      # Output: 150
+
+
+
+ Characteristics of Global Variables
+Feature                 Description
+Defined                 in  Outside all functions and classes
+Scope                   Entire file/module (can be accessed in any function or class)
+Access                      in class Use directly to read; use global keyword to modify inside method/function
+Shared                  Yes, shared across all objects and functions
+
+
+
+a=10
+class Demo:
+    def __init__(self):
+        print("global  variable=",a)
+    def show(self,b):
+        global a
+        print("global variable =",a)
+        a=30
+def disp():
+    print("global varaiable =",a)
+ob=Demo()
+disp()
+
+ob.show(50)
+print(a) 
+a=50
+print(a)
+
+
+
+
+o/p:
+global  variable= 10
+global varaiable = 10
+global variable = 10
+30
+50
+
+
+
+
+a=10 # global variable  
+class Demo:
+    def __init__(self):
+        b=20  #local variable
+    def show(self,b):
+        c=30   #local variable
+ob=Demo()
+print(ob.__dict__)
+
+
+o/p:
+{  }
+
+
+Without global, it becomes local inside the method:
+
+
+count = 0
+
+class Counter:
+    def increase(self):
+        count = count + 1  # ❌ Error: UnboundLocalError (treats count as local)
+
+c = Counter()
+c.increase()
+
+
+
+To fix it:
+
+count = 0
+
+class Counter:
+    def increase(self):
+        global count
+        count = count + 1
+        print("Count =", count)
+
+c = Counter()
+c.increase()  # Output: 1
+
+
+
+Type    Defined  Where                   Accessed In Class With             Modifiable?
+Global  Outside class/method    Directly or with global                 Yes (with global)
+Local   Inside method only      Only in that method                         Yes (but dies after method ends)
+
+instance variable 
+_________________
+
+
+Instance Variable
+Defined using self inside a class method, usually in __init__.
+
+Each object gets its own copy.
+
+Used to store object-specific data.
+
+
+class Student:
+    def __init__(self, name):
+        self.name = name  # instance variable
+
+s1 = Student("John")
+s2 = Student("Alice")
+print(s1.name)  # John
+print(s2.name)  # Alice
+
+
+Definition:
+An instance variable is a variable that is specific to an object (instance) of a class.
+It's usually created using self.variable_name inside a method (typically __init__).
+
+ Example 1: Declared in __init__() Constructor
+
+ class Student:
+    def __init__(self, name, roll):
+        self.name = name       # instance variable
+        self.roll = roll       # instance variable
+
+s1 = Student("Alice", 101)
+s2 = Student("Bob", 102)
+
+print(s1.name, s1.roll)   # Alice 101
+print(s2.name, s2.roll)   # Bob 102
+
+
+Each object (s1, s2) has its own copy of name and roll.
+
+
+
+Example 2: Declared Inside Any Method Using self
+
+class Employee:
+    def set_data(self, name, salary):
+        self.name = name      # instance variable
+        self.salary = salary  # instance variable
+
+    def show(self):
+        print("Name:", self.name)
+        print("Salary:", self.salary)
+
+e = Employee()
+e.set_data("John", 50000)
+e.show()
+
+
+Example 3: Add Instance Variable Outside the Class (After Object is Created)
+
+class Demo:
+    def __init__(self):
+        self.a = 10
+
+d = Demo()
+d.b = 20    # instance variable added after object creation
+
+print(d.a)  # 10
+print(d.b)  # 20
+
+d1=Demo()
+print(d1.a) #10
+
+
+Note: b belongs only to d1 . Other objects won’t have b.
+
+
+Example 4: Modify Instance Variables
+
+class Box:
+    def __init__(self, length):
+        self.length = length
+
+b1 = Box(10)
+b2 = Box(20)
+
+b1.length = 50  # change only for b1
+
+print(b1.length)  # 50
+print(b2.length)  # 20
+
+Example 5: Difference from Class Variable
+
+class Car:
+    wheels = 4  # class variable
+
+    def __init__(self, brand):
+        self.brand = brand  # instance variable
+
+c1 = Car("Toyota")
+c2 = Car("BMW")
+
+c1.brand = "Honda"  # modifies only c1
+Car.wheels = 6      # changes for all
+
+print(c1.brand, c1.wheels)  # Honda 6
+print(c2.brand, c2.wheels)  # BMW 6
+
+
+
+a=10 # global variable  
+class Demo:
+    def __init__(self):
+        self.b=20  #instance variable
+    def show(self):
+        e=50
+        self.c=30   #instance variable
+ob=Demo()
+print(ob.__dict__)
+ob.show()
+print(ob.__dict__)
+ob.d=40
+print(ob.__dict__)
+
+
+o/p:
+{'b': 20}
+{'b': 20, 'c': 30}
+{'b': 20, 'c': 30, 'd': 40}
+
+we can create instance variable any location 
+
+
+
+per object per instance variable
+______________________________
+a=10 # global variable  
+class Demo:
+    def __init__(self):
+        self.b=20  #instance variable
+    def show(self):
+        self.c=30   #instance variable
+ob=Demo()
+print(ob.__dict__)
+ob.show()
+print(ob.__dict__)
+ob.d=40
+print(ob.__dict__)
+ob1=Demo()
+print(ob1.__dict__)
+ob1.x=50
+print(ob1.__dict__)
+
+o/p:
+{'b': 20}
+{'b': 20, 'c': 30}
+{'b': 20, 'c': 30, 'd': 40}
+{'b': 20}
+{'b': 20, 'x': 50}
+
+
+
+
+
+ Instance Variable Characteristics
+Feature                  Description
+Defined using          self.variable
+Where                       Inside constructor or method
+Belongs                  to  Each individual object
+Accessed by object.          variable or self.variable inside class
+Unique per object              Yes (not shared like class variables)
+
+
+Detect Class vs Instance Variable in __dict__
+class Demo:
+    x = 100  # class variable
+    def __init__(self):
+        self.y = 200  # instance variable
+
+d = Demo()
+
+print("Class dict:", Demo.__dict__)
+print("Object dict:", d.__dict__)
+
+
+
+
+Class Variable in Python
+🔹 Definition:
+A class variable is defined inside a class but outside all methods.
+It is shared by all instances (objects) of the class.
+
+class Student:
+    school = "ABC Public School"  # class variable
+
+    def __init__(self, name):
+        self.name = name          # instance variable
+
+s1 = Student("Alice")
+s2 = Student("Bob")
+
+print(s1.name, s1.school)  # Alice ABC Public School
+print(s2.name, s2.school)  # Bob ABC Public School
+
+
+
+school is shared, but name is unique per object.
+
+
+Example 2: Modify Class Variable Using Class Name
+
+class Student:
+    school = "ABC School"
+
+s1 = Student()
+s2 = Student()
+
+Student.school = "XYZ School"  # modify using class name
+
+print(s1.school)  # XYZ School
+print(s2.school)  # XYZ School
+
+
+
+
+Example 3: Modify Class Variable Using self (Creates New Instance Variable)
+
+class Student:
+    school = "ABC School"
+
+s1 = Student()
+s2 = Student()
+
+s1.school = "Private School"  # creates instance variable for s1 only
+
+print(s1.school)  # Private School
+print(s2.school)  # ABC School
+print(Student.school)  # ABC School
+
+
+
+class Demo:
+    a=10   #class variable
+    def __init__(self):
+        self.b=20  #instance variable
+    def show(self):
+        self.c=30   #instance variable
+ob=Demo()
+print(ob.__dict__)
+ob.show()
+print(ob.__dict__)
+print(Demo.__dict__)
+
+o/P:
+{'b': 20}
+{'b': 20, 'c': 30}
+{'__module__': '__main__', 'a': 10, '__init__': <function Demo.__init__ at 0x0000026D64CAD300>, 'show': <function Demo.show at 0x0000026D64CAD120>, '__dict__': <attribute '__dict__' of 'Demo' objects>, '__weakref__': <attribute '__weakref__' of 'Demo' objects>, '__doc__': None}
+
+
+
+
+
+ This does not change the class variable; it creates an instance variable in s1.
+
+
+
+class Demo:
+    a=10   #class variable
+    def __init__(self):
+        self.b=20  #instance variable
+        g=90 #local variable
+    def show(self):
+        self.c=30   #instance variable
+ob=Demo()
+#print(ob.__dict__)  #{ 'b': 20}
+ob.show()
+#print(ob.__dict__)  #('b':20 ,'c':30')
+#print(Demo.__dict__) #{extra  ,'a':10}
+print(ob.b,ob.c,ob.a,Demo.a)
+#print(g)  local variabl   not acess outside
+
+
+o/p:
+20 30 10 10
+
+ equvalient java code 
+ __________________________
+class Demo {
+    static int a = 10; // class variable
+    int b;             // instance variable
+    int c;             // instance variable (assigned in show)
+
+    Demo() {
+        b = 20;
+        int g = 90; // local variable, only accessible in constructor
+    }
+
+    void show() {
+        c = 30; // instance variable
+    }
+
+    public static void main(String[] args) {
+        Demo ob = new Demo();
+        ob.show();
+
+        System.out.println(ob.b + " " + ob.c + " " + ob.a + " " + Demo.a);
+        // or optionally with labels:
+        // System.out.println("b=" + ob.b + " c=" + ob.c + " a=" + ob.a + " Demo.a=" + Demo.a);
+    }
+}
+
+class Demo:
+    a=10   #class variable
+    def __init__(self):
+        self.b=20  #instance variable
+        g=90 #local variable
+    def show(self):
+        self.c=30   #instance variable
+ob=Demo()
+#print(ob.__dict__)  #{ 'b': 20}
+ob.show()
+#print(ob.__dict__)  #('b':20 ,'c':30')
+#print(Demo.__dict__) #{extra  ,'a':10}
+print(ob.b,ob.c,ob.a,Demo.a)  #20 30 10 10
+print(ob.__dict__) #('b':20 ,'c':30')
+ob.a=50
+print(ob.__dict__) #('b':20 ,'c':30','a:50)
+print(ob.a,Demo.a) #50 10
+Demo.a=70
+print(ob.a,Demo.a) #50 10
+
+o/p:
+20 30 10 10
+{'b': 20, 'c': 30}
+{'b': 20, 'c': 30, 'a': 50}
+50 10
+50 70
+
+
+
+
+class Demo:
+    a = 10
+    def __init__(self):
+        self.b = 20  # instance variable
+
+    def show(self):
+        self.c = 30  # instance variable
+
+ob = Demo()
+ob.show()
+ob.d = 40  # dynamically added attribute
+print(ob.b, ob.c, ob.d)
+
+o/p:
+20 30 40 
+
+❗ Key Points:
+b is initialized in __init__
+
+c is initialized in show()
+
+d is dynamically added to the object after creation — this is possible in Python, but not allowed in Java (Java doesn't allow adding new attributes dynamically to an object after it's created).
+
+class Demo {
+    int b; // instance variable
+    int c; // instance variable
+    int d; // extra variable manually added in Java
+
+    Demo() {
+        b = 20;
+    }
+
+    void show() {
+        c = 30;
+    }
+
+    public static void main(String[] args) {
+        Demo ob = new Demo();
+        ob.show();
+        ob.d = 40;  // in Java, you must define this field in the class
+
+        System.out.println(ob.b + " " + ob.c + " " + ob.d);
+    }
+}
+
+
+
+differnence between instance variable and class variable
+__________________________________________________
+class Demo:
+    a=10 
+    def __init__(self):
+        self.b=20  #instance variable
+ob1=Demo()
+ob2=Demo()
+print(ob1.a,ob1.b) # 10 20
+print(ob2.a,ob2.b) # 10 20
+ob1.b=30
+ob2.b=40
+Demo.a=50
+print(ob1.a,ob1.b) # 50 30
+print(ob2.a,ob2.b) # 50 40
+
+
+
+o/p:
+10 20
+10 20
+50 30
+50 40
+
+
+
+class Demo:
+    a=10 
+    def __init__(self):
+        self.b=20  #instance variable
+ob1=Demo()
+ob2=Demo()
+print(ob1.a,ob1.b) # 10 20
+print(ob2.a,ob2.b) # 10 20
+ob1.a=30
+ob2.b=40
+Demo.a=50
+print(ob1.a,ob1.b) # 30 20
+print(ob2.a,ob2.b) #50 40
+
+o/p:
+10 20
+10 20
+30 20
+50 40
+
+
+# count no of object 
+
+class Demo:
+    c=0# class variable
+    def __init__(self):
+        Demo.c=Demo.c+1
+ob1=Demo()
+ob2=Demo()
+ob3=Demo()
+L=[Demo(),Demo(),Demo()]
+print("no of object=",Demo.c)
+
+
+o/P;
+no of object=6
+
+
+
+class Demo:
+    c=0# class variable
+    def __init__(self):
+        Demo.c=1
+        self.a=1
+    def update(self):
+        Demo.c=Demo.c+1
+        self.a=self.a+1
+    def show(self):
+        print(self.a,Demo.c)
+d=Demo()
+d1=Demo()
+d2=Demo()
+d.update()
+d1.update()
+d2.update()
+d.show()
+d1.show()
+d2.show()
+
+
+C:\Users\LENOVO\OneDrive\Desktop\pythonbiki>py p.py
+2 4
+2 4
+2 4
+
+
+https://chatgpt.com/share/6878f21c-f254-8008-8b72-d9730f613602
+
+Example 5: Class Variable vs Instance Variable
+
+
+class Employee:
+    company = "TCS"  # class variable
+
+    def __init__(self, name):
+        self.name = name  # instance variable
+
+e1 = Employee("John")
+e2 = Employee("Mary")
+
+print(e1.name, e1.company)  # John TCS
+print(e2.name, e2.company)  # Mary TCS
+
+Employee.company = "Infosys"
+
+print(e1.company)  # Infosys
+print(e2.company)  # Infosys
+
+
+
+
+Class Variable Characteristics
+Feature                Description
+Defined                  Inside class, outside any method
+Accessed                   by ClassName.var or self.var
+Shared?                       ✅ Yes, among all instances
+Modified                     via class  ✅ Affects all instances
+Modified                       via object ❌ Creates instance-level copy (does not affect others)
